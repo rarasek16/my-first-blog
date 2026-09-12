@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<article>
+    <time>published: {{ post.published_date|date:"d.m.Y, H:i" }}</time>
+    <h2>{{ post.title }}</h2>
+    <p>Author: {{ post.author.username }}</p>
+    {% if post.category %}
+        <p>Category: {{ post.category.name }}</p>
+    {% endif %}
+    <p>{{ post.text|linebreaksbr }}</p>
+
+    {% if user.is_authenticated and user == post.author %}
+        <p><a href="{% url 'post_edit' pk=post.pk %}">Edit post</a></p>
+    {% endif %}
+</article>
+{% endblock %}
