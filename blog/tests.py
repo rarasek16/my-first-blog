@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.core.management import call_command
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -23,6 +24,15 @@ class PostFormTests(TestCase):
         form = PostForm(data={"title": "Form title", "text": "Form text", "category": category.id})
 
         self.assertTrue(form.is_valid())
+
+
+class SeedDjangoLessonsCommandTests(TestCase):
+    def test_command_creates_lessons_once(self):
+        call_command("seed_django_lessons")
+        call_command("seed_django_lessons")
+
+        self.assertEqual(Category.objects.count(), 4)
+        self.assertEqual(Post.objects.filter(author__username="django_start").count(), 6)
 
 
 class PostViewTests(TestCase):
