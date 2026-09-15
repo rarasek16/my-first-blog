@@ -1,40 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
-    <title>Django Girls blog</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Praktický úvod do Django pro studenty IT.">
+    <title>{% block title %}Django start{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'blog/css/site.css' %}">
 </head>
 <body>
-<header>
-    <h1><a href="{% url 'post_list' %}">Django Girls Blog</a></h1>
-    <nav>
-        {% if user.is_authenticated %}
-            <a href="{% url 'post_new' %}">New post</a>
-            <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
-        {% else %}
-            <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-    </nav>
-</header>
+<div class="site-shell">
+    <header class="site-header">
+        <a class="brand" href="{% url 'post_list' %}" aria-label="Django start - úvodní stránka">
+            <span class="brand-mark">&lt;/&gt;</span>
+            <span>Django<span>Start</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Hlavní navigace">
+            <a href="{% url 'post_list' %}">Články</a>
+            <a href="{% url 'post_list' %}#plan">Studijní plán</a>
+            {% if user.is_authenticated %}
+                <a class="button button-small" href="{% url 'post_new' %}">Napsat článek</a>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="link-button" type="submit">Odhlásit</button>
+                </form>
+            {% else %}
+                <a class="button button-small" href="{% url 'login' %}">Přihlásit se</a>
+            {% endif %}
+        </nav>
+    </header>
 
-<aside>
-    <h3>Categories</h3>
-    <ul>
-        <li><a href="{% url 'post_list' %}">All</a></li>
-        {% for category in categories %}
-            <li>
-                <a href="{% url 'post_list_by_category' category.slug %}">{{ category.name }}</a>
-            </li>
-        {% empty %}
-            <li>No categories</li>
-        {% endfor %}
-    </ul>
-</aside>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+    <footer class="site-footer">
+        <p><strong>DjangoStart</strong> je výukový blog pro studenty IT, kteří chtějí tvořit weby v Pythonu.</p>
+        <p>Uč se po malých krocích. Zkoušej. Ptej se. Stavěj.</p>
+    </footer>
+</div>
 </body>
 </html>

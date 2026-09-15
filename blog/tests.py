@@ -76,6 +76,18 @@ class PostViewTests(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_post_detail_includes_navigation_categories(self):
+        post = Post.objects.create(
+            author=self.author,
+            title="Published",
+            text="Visible",
+            published_date=timezone.now(),
+        )
+
+        response = self.client.get(reverse("post_detail", kwargs={"pk": post.pk}))
+
+        self.assertContains(response, self.category.name)
+
     def test_post_create_requires_login(self):
         response = self.client.get(reverse("post_new"))
 

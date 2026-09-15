@@ -1,10 +1,16 @@
 {% extends 'blog/base.html' %}
 
+{% block title %}{% if is_edit %}Upravit článek{% else %}Nový článek{% endif %} | DjangoStart{% endblock %}
+
 {% block content %}
-    <h2>{% if is_edit %}Edit post{% else %}New post{% endif %}</h2>
-    <form method="post">
+<section class="editor-page">
+    <p class="eyebrow">Tvůj zápisník</p>
+    <h1>{% if is_edit %}Upravit článek{% else %}Napiš, co ses naučil/a{% endif %}</h1>
+    <p>Piš jednoduše, přidej ukázku svého postupu a poděl se o chyby, které ti pomohly pochopit řešení.</p>
+    <form class="post-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button class="button" type="submit">Uložit článek</button>
     </form>
+</section>
 {% endblock %}

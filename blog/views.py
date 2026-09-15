@@ -6,13 +6,16 @@ from .forms import PostForm
 from .models import Category, Post
 
 
+def navigation_context():
+    return {"categories": Category.objects.all()}
+
+
 def post_list(request, category_slug=None):
     posts = (
         Post.objects.filter(published_date__lte=timezone.now())
         .select_related("author", "category")
         .order_by("-published_date")
     )
-    categories = Category.objects.all()
     selected_category = None
 
     if category_slug:
@@ -23,8 +26,8 @@ def post_list(request, category_slug=None):
         request,
         "blog/post_list.html",
         {
+            **navigation_context(),
             "posts": posts,
-            "categories": categories,
             "selected_category": selected_category,
         },
     )
@@ -32,7 +35,7 @@ def post_list(request, category_slug=None):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk, published_date__lte=timezone.now())
-    return render(request, "blog/post_detail.html", {"post": post})
+    return render(request, "blog/post_detail.html", {**navigation_context(), "post": post})
 
 
 @login_required
@@ -48,7 +51,11 @@ def post_new(request):
             return redirect("post_detail", pk=post.pk)
     else:
         form = PostForm()
-    return render(request, "blog/post_edit.html", {"form": form, "is_edit": False})
+    return render(
+        request,
+        "blog/post_edit.html",
+        {**navigation_context(), "form": form, "is_edit": False},
+    )
 
 
 @login_required
@@ -65,7 +72,11 @@ def post_edit(request, pk):
             return redirect("post_detail", pk=post.pk)
     else:
         form = PostForm(instance=post)
-    return render(request, "blog/post_edit.html", {"form": form, "is_edit": True, "post": post})
+    return render(
+        request,
+        "blog/post_edit.html",
+        {**navigation_context(), "form": form, "is_edit": True, "post": post},
+    )
 
 
 def custom_404(request, exception):

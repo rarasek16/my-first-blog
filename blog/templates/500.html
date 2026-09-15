@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Server error</title>
-</head>
-<body>
-<h1>500 - Server error</h1>
-<p>Something went wrong on our side.</p>
-<p><a href="/">Back to home</a></p>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block title %}Chyba serveru | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="editor-page login-page">
+    <p class="eyebrow">Chyba 500</p>
+    <h1>Něco se pokazilo na naší straně.</h1>
+    <p>Zkus stránku načíst znovu. Pokud problém přetrvá, dej o něm vědět správci projektu.</p>
+    <p><a class="button" href="{% url 'post_list' %}">Zpět na úvod</a></p>
+</section>
+{% endblock %}

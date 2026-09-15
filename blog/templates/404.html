@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Page not found</title>
-</head>
-<body>
-<h1>404 - Page not found</h1>
-<p>The requested page could not be found.</p>
-<p><a href="/">Back to home</a></p>
-</body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block title %}Stránka nenalezena | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="editor-page login-page">
+    <p class="eyebrow">Chyba 404</p>
+    <h1>Tahle cesta nikam nevede.</h1>
+    <p>Možná se URL změnila, nebo tento článek ještě neexistuje.</p>
+    <p><a class="button" href="{% url 'post_list' %}">Zpět na úvod</a></p>
+</section>
+{% endblock %}

@@ -1,17 +1,23 @@
 {% extends 'blog/base.html' %}
 
+{% block title %}{{ post.title }} | DjangoStart{% endblock %}
+
 {% block content %}
-<article>
-    <time>published: {{ post.published_date|date:"d.m.Y, H:i" }}</time>
-    <h2>{{ post.title }}</h2>
-    <p>Author: {{ post.author.username }}</p>
+<article class="article-detail">
+    <a class="back-link" href="{% url 'post_list' %}">&larr; Zpět na všechny články</a>
+    <div class="article-meta">
+        {% if post.category %}<span>{{ post.category.name }}</span>{% endif %}
+        <time datetime="{{ post.published_date|date:'c' }}">{{ post.published_date|date:"d. m. Y" }}</time>
+    </div>
+    <h1>{{ post.title }}</h1>
+    <p class="article-author">Napsal/a {{ post.author.username }}</p>
     {% if post.category %}
-        <p>Category: {{ post.category.name }}</p>
+        <p class="article-category">Téma: {{ post.category.name }}</p>
     {% endif %}
-    <p>{{ post.text|linebreaksbr }}</p>
+    <div class="article-body">{{ post.text|linebreaksbr }}</div>
 
     {% if user.is_authenticated and user == post.author %}
-        <p><a href="{% url 'post_edit' pk=post.pk %}">Edit post</a></p>
+        <p><a class="button button-small" href="{% url 'post_edit' pk=post.pk %}">Upravit článek</a></p>
     {% endif %}
 </article>
 {% endblock %}

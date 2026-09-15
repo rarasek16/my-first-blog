@@ -1,20 +1,79 @@
 {% extends 'blog/base.html' %}
 
-{% block content %}
-    {% if selected_category %}
-        <h2>Category: {{ selected_category.name }}</h2>
-    {% endif %}
+{% block title %}DjangoStart | Weby v Pythonu{% endblock %}
 
-    {% for post in posts %}
-        <article>
-            <time>published: {{ post.published_date|date:"d.m.Y, H:i" }}</time>
-            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            {% if post.category %}
-                <p>Category: {{ post.category.name }}</p>
+{% block content %}
+<section class="hero">
+    <div class="hero-copy">
+        <p class="eyebrow">Python + web + tvoje první aplikace</p>
+        <h1>Začni tvořit weby<br>v <em>Django.</em></h1>
+        <p class="hero-text">Praktický blog pro studenty IT. Naučíš se proměnit nápad v aplikaci, která má databázi, přihlášení a vlastní adresu na internetu.</p>
+        <div class="hero-actions">
+            <a class="button" href="#clanky">Začít číst</a>
+            <a class="text-link" href="#plan">Jak bude cesta vypadat <span aria-hidden="true">-&gt;</span></a>
+        </div>
+    </div>
+    <div class="code-card" aria-label="Ukázka Python kódu">
+        <div class="code-card-bar"><span></span><span></span><span></span><code>views.py</code></div>
+        <pre><span class="code-purple">def</span> <span class="code-blue">ahoj_django</span>(student):
+    projekt = <span class="code-blue">Web</span>(
+        napad=<span class="code-green">"Můj první blog"</span>,
+        technologie=<span class="code-green">"Python"</span>,
+    )
+    <span class="code-purple">return</span> projekt.<span class="code-blue">spustit</span>()</pre>
+        <div class="code-result"><span>✓</span> Aplikace běží na localhostu</div>
+    </div>
+</section>
+
+<section class="learning-path" id="plan">
+    <div class="section-heading">
+        <p class="eyebrow">Studijní plán</p>
+        <h2>Od prvního příkazu k vlastnímu webu</h2>
+    </div>
+    <ol class="steps">
+        <li><span>01</span><div><h3>Seznam se s nástroji</h3><p>Python, terminál, virtuální prostředí a Git bez zbytečné teorie.</p></div></li>
+        <li><span>02</span><div><h3>Postav kostru projektu</h3><p>URL adresy, view a šablony: tři věci, díky kterým Django ožije.</p></div></li>
+        <li><span>03</span><div><h3>Přidej data</h3><p>Modely, SQLite a Django admin promění stránku v opravdovou aplikaci.</p></div></li>
+        <li><span>04</span><div><h3>Vystav svůj projekt</h3><p>Nasazení na web a sdílení výsledku s kamarády nebo učitelem.</p></div></li>
+    </ol>
+</section>
+
+<section class="articles-section" id="clanky">
+    <div class="section-heading section-heading-row">
+        <div>
+            <p class="eyebrow">Zápisník z učení</p>
+            {% if selected_category %}
+                <h2>Téma: {{ selected_category.name }}</h2>
+            {% else %}
+                <h2>Články a návody</h2>
             {% endif %}
-            <p>{{ post.text|linebreaksbr }}</p>
-        </article>
-    {% empty %}
-        <p>No posts available.</p>
-    {% endfor %}
+        </div>
+        <div class="category-links" aria-label="Kategorie článků">
+            <a class="{% if not selected_category %}active{% endif %}" href="{% url 'post_list' %}">Vše</a>
+            {% for category in categories %}
+                <a class="{% if selected_category == category %}active{% endif %}" href="{% url 'post_list_by_category' category.slug %}">{{ category.name }}</a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="post-grid">
+        {% for post in posts %}
+            <article class="post-card">
+                <div class="post-card-meta">
+                    {% if post.category %}<span>{{ post.category.name }}</span>{% endif %}
+                    <time datetime="{{ post.published_date|date:'c' }}">{{ post.published_date|date:"d. m. Y" }}</time>
+                </div>
+                <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+                <p>{{ post.text|truncatechars:180 }}</p>
+                <a class="post-read" href="{% url 'post_detail' pk=post.pk %}">Otevřít článek <span aria-hidden="true">-&gt;</span></a>
+            </article>
+        {% empty %}
+            <div class="empty-state">
+                <p class="empty-icon">&lt;/&gt;</p>
+                <h3>První článek čeká na tebe</h3>
+                <p>V administraci můžeš založit článek o tom, co ses právě naučil/a. Blog pak bude růst společně s tebou.</p>
+            </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

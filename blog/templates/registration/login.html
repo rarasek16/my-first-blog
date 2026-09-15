@@ -1,14 +1,20 @@
 {% extends 'blog/base.html' %}
 
+{% block title %}Přihlášení | DjangoStart{% endblock %}
+
 {% block content %}
-    <h2>Login</h2>
+<section class="editor-page login-page">
+    <p class="eyebrow">Pro autory</p>
+    <h1>Přihlášení</h1>
+    <p>Přihlas se a sdílej s ostatními, co v Djangu objevuješ.</p>
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again.</p>
+        <p class="form-error">Uživatelské jméno nebo heslo nesedí. Zkus to znovu.</p>
     {% endif %}
 
-    <form method="post">
+    <form class="post-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Login</button>
+        <button class="button" type="submit">Přihlásit se</button>
     </form>
+</section>
 {% endblock %}
