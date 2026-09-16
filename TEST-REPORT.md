@@ -33,7 +33,7 @@
 |---|---|---|
 | Přístupová práva článků | anonymní uživatel je přesměrován; student dostane `403`; správce může spravovat vlastní článek, ale ne cizí | PASS |
 | Navigace | student nevidí odkaz na formulář; správce jej vidí | PASS |
-| Bonusová zóna a ISTQB materiály | přihlášený student má stále stav `200` | PASS |
+| Bonusová zóna a testovací materiály | přihlášený student má stále stav `200` | PASS |
 | Regrese | 29 automatizovaných testů, `manage.py check` a `git diff --check` | PASS |
 
 ## Vady během exekuce

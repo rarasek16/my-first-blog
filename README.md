@@ -31,7 +31,7 @@ Pro správu článků založ administrátora příkazem `python manage.py create
 
 ## PDF reporty
 
-Souhrnný dokument s technickým stand-up reportem, ISTQB test planem a execution reportem vytvoříš příkazem:
+Souhrnný dokument s technickým stand-up reportem, testovacím plánem a testovacím reportem dle průmyslových standardů a metodik vytvoříš příkazem:
 
 ```powershell
 python tools/generate_reports_pdf.py

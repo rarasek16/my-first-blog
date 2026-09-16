@@ -1,4 +1,4 @@
-"""Build a styled PDF from the project's technical and ISTQB Markdown reports."""
+"""Build a styled PDF from the project's technical and test Markdown reports."""
 
 from __future__ import annotations
 
@@ -31,8 +31,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = PROJECT_ROOT / "reports" / "DjangoStart-technicke-a-testovaci-reporty.pdf"
 REPORTS = (
     ("Technický stand-up report", PROJECT_ROOT / "TECHNICAL-REPORT.md"),
-    ("ISTQB test plan", PROJECT_ROOT / "TEST-PLAN.md"),
-    ("ISTQB test execution report", PROJECT_ROOT / "TEST-REPORT.md"),
+    ("Testovací plán dle průmyslových metodik", PROJECT_ROOT / "TEST-PLAN.md"),
+    ("Testovací report dle průmyslových metodik", PROJECT_ROOT / "TEST-REPORT.md"),
 )
 
 INK = colors.HexColor("#1C2440")
@@ -286,7 +286,7 @@ def build_pdf(output_path: Path = OUTPUT_PATH) -> Path:
         bottomMargin=1.45 * cm,
         title="DjangoStart - Technické a testovací reporty",
         author="DjangoStart",
-        subject="Technický stand-up report a ISTQB testovací dokumentace",
+        subject="Technický stand-up report a testovací dokumentace dle průmyslových metodik",
     )
     story: list[object] = [
         Spacer(1, 3.1 * cm),
@@ -318,7 +318,8 @@ def build_pdf(output_path: Path = OUTPUT_PATH) -> Path:
         ),
         Spacer(1, 2 * cm),
         Paragraph(
-            "Dokument kombinuje technický stand-up report, ISTQB test plan a test execution report. "
+            "Dokument kombinuje technický stand-up report, testovací plán a testovací report "
+            "dle průmyslových standardů a metodik. "
             "Slouží jako podklad pro výuku, kontrolu postupu i rozhodování o dalším vydání.",
             styles["subtitle"],
         ),

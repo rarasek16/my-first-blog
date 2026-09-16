@@ -4,7 +4,7 @@
 **Datum:** 16. září 2026  
 **Cíl testování:** ověřit, že výukový web DjangoStart poskytuje funkční, bezpečný a přístupný tok od veřejného obsahu přes registraci až po chráněné bonusové úkoly a správu obsahu.
 
-Tento plán používá původně formulované principy testování v duchu ISTQB: testování řízené riziky, oddělení úrovní testu, návrhové techniky, dohledatelnost a jasná kritéria vstupu a výstupu.
+Tento plán vychází z průmyslově používaných standardů a metodik testování: z testování řízeného riziky, oddělení úrovní testu, návrhových technik, dohledatelnosti a jasných kritérií vstupu a výstupu.
 
 ## 1. Rozsah
 

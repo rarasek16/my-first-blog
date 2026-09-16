@@ -11,7 +11,7 @@
 | Oblast | Stav | Důkaz |
 |---|---|---|
 | Výukový obsah | Hotovo | 11 lekcí v 8 kategoriích, z toho 8 lekcí s cílem, ukázkou kódu, výkladem a úkolem |
-| Běžný uživatel | Hotovo | Registrace, přihlášení, bonusová zóna a ISTQB materiály; správa článků je nepřístupná |
+| Běžný uživatel | Hotovo | Registrace, přihlášení, bonusová zóna a testovací materiály; správa článků je nepřístupná |
 | Správce obsahu | Hotovo | Pouze `is_staff=True` může vytvořit a upravit vlastní článek; cizí článek vrací `404` |
 | Administrace | Hotovo | Lokální účet `admin_demo` úspěšně otevře `/admin/` |
 | Bonusový obsah | Hotovo | `/bonus/` vyžaduje přihlášení; anonymní návštěvník dostává `302`, přihlášený uživatel `200` |
