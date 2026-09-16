@@ -8,12 +8,19 @@
     <h1>Přihlášení</h1>
     <p>Přihlas se a sdílej s ostatními, co v Djangu objevuješ.</p>
     {% if form.errors %}
-        <p class="form-error">Uživatelské jméno nebo heslo nesedí. Zkus to znovu.</p>
+        <p class="form-error" role="alert">Uživatelské jméno nebo heslo nesedí. Zkus to znovu.</p>
     {% endif %}
 
     <form class="post-form" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-field">
+            <label for="{{ form.username.id_for_label }}">Uživatelské jméno</label>
+            <input id="{{ form.username.id_for_label }}" name="{{ form.username.html_name }}" type="text" autocomplete="username" required{% if form.username.value %} value="{{ form.username.value }}"{% endif %}>
+        </div>
+        <div class="form-field">
+            <label for="{{ form.password.id_for_label }}">Heslo</label>
+            <input id="{{ form.password.id_for_label }}" name="{{ form.password.html_name }}" type="password" autocomplete="current-password" required>
+        </div>
         <button class="button" type="submit">Přihlásit se</button>
     </form>
 </section>

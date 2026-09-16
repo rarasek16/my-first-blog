@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="{% static 'blog/css/site.css' %}">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Přeskočit na hlavní obsah</a>
 <div class="site-shell">
     <header class="site-header">
-        <a class="brand" href="{% url 'post_list' %}" aria-label="Django start - úvodní stránka">
-            <span class="brand-mark">&lt;/&gt;</span>
+        <a class="brand" href="{% url 'post_list' %}">
+            <span class="brand-mark" aria-hidden="true">&lt;/&gt;</span>
             <span>Django<span>Start</span></span>
         </a>
         <nav class="main-nav" aria-label="Hlavní navigace">
@@ -30,13 +31,13 @@
         </nav>
     </header>
 
-    <main>
+    <main id="main-content" tabindex="-1">
         {% block content %}{% endblock %}
     </main>
 
     <footer class="site-footer">
         <p><strong>DjangoStart</strong> je výukový blog pro studenty IT, kteří chtějí tvořit weby v Pythonu.</p>
-        <p>Uč se po malých krocích. Zkoušej. Ptej se. Stavěj.</p>
+        <p><a href="{% url 'accessibility_statement' %}">Prohlášení o přístupnosti</a></p>
     </footer>
 </div>
 </body>

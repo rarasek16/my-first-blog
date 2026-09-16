@@ -1,10 +1,10 @@
 :root {
     --ink: #1c2440;
-    --muted: #66708b;
+    --muted: #4e5872;
     --paper: #f7f8fc;
     --white: #ffffff;
     --line: #e4e7f0;
-    --violet: #6c4ce6;
+    --violet: #5c3ec7;
     --violet-dark: #4d32bd;
     --mint: #87e4c2;
     --yellow: #ffe59a;
@@ -27,9 +27,39 @@ body {
     line-height: 1.6;
 }
 
+main:focus {
+    outline: none;
+}
+
 a {
     color: inherit;
     text-decoration: none;
+}
+
+.skip-link {
+    position: fixed;
+    z-index: 10;
+    top: 12px;
+    left: 12px;
+    padding: 10px 14px;
+    transform: translateY(-160%);
+    border-radius: 8px;
+    background: var(--ink);
+    color: var(--white);
+    font-weight: 750;
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid #f08a24;
+    outline-offset: 3px;
 }
 
 .site-shell {
@@ -543,15 +573,21 @@ a {
     margin-top: 34px;
 }
 
-.post-form p {
+.form-field {
     display: grid;
     gap: 7px;
     margin: 0 0 21px;
 }
 
-.post-form label {
+.form-field label {
     font-size: 0.85rem;
     font-weight: 800;
+}
+
+.form-help {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
 }
 
 .post-form input,
@@ -603,6 +639,28 @@ a {
 
 .site-footer strong {
     color: var(--ink);
+}
+
+.site-footer a {
+    color: var(--violet-dark);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }
 
 @media (max-width: 900px) {

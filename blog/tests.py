@@ -69,6 +69,7 @@ class PostViewTests(TestCase):
 
         self.assertContains(response, published.title)
         self.assertNotContains(response, "Draft")
+        self.assertContains(response, 'href="#main-content"')
 
     def test_post_list_filters_by_category(self):
         second_category = Category.objects.create(name="Web", slug="web")
@@ -129,6 +130,20 @@ class PostViewTests(TestCase):
         post = Post.objects.get(title="New Post")
         self.assertEqual(post.author, self.author)
         self.assertIsNotNone(post.published_date)
+
+    def test_post_form_has_programmatic_help_and_error_descriptions(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("post_new"))
+
+        self.assertContains(response, 'for="id_title"')
+        self.assertContains(response, 'aria-describedby="title-help title-errors"')
+
+    def test_accessibility_statement_is_available(self):
+        response = self.client.get(reverse("accessibility_statement"))
+
+        self.assertContains(response, "Prohlášení o přístupnosti")
+        self.assertContains(response, "WCAG 2.2")
 
     def test_post_edit_limited_to_author(self):
         post = Post.objects.create(

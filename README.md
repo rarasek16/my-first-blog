@@ -46,6 +46,12 @@ Tento přepínač úmyslně aktualizuje jen vzorové lekce; běžné články st
 
 Závěrečný projekt může být blog, katalog knih, školní nástěnka, rezervační formulář nebo jednoduchá evidence. Student by měl umět navrhnout modely, vytvořit URL, view a šablony, pracovat s formulářem a přihlášením, napsat základní testy a projekt nasadit.
 
+## Přístupnost
+
+Rozhraní je technicky navržené podle WCAG 2.2 AA a EN 301 549: nabízí ovládání klávesnicí, odkaz pro přeskočení navigace, viditelný fokus, responzivní rozvržení, textové formulářové chyby a omezení animací podle nastavení uživatele. Veřejné prohlášení je na adrese `/pristupnost/`.
+
+Před zveřejněním je potřeba doplnit konkrétní kontaktní údaj správce kurzu a provést nezávislý odborný audit, zejména s uživateli asistivních technologií. Teprve ten může potvrdit právní shodu pro konkrétního provozovatele a jurisdikci.
+
 ## Doporučené využití ve výuce
 
 1. U každého modulu nejdřív ověř porozumění cíli lekce.

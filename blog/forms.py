@@ -15,3 +15,14 @@ class PostForm(forms.ModelForm):
             "code_explanation",
             "practice_task",
         ]
+        help_texts = {
+            "learning_goal": "Jednou větou popiš, co se čtenář po lekci naučí.",
+            "code_example": "Vkládej jen zdrojový kód bez formátování HTML.",
+            "code_explanation": "Vysvětli, co dělají nejdůležitější řádky ukázky.",
+            "practice_task": "Zadej samostatný úkol, kterým čtenář porozumění ověří.",
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs["aria-describedby"] = f"{name}-help {name}-errors"

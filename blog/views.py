@@ -73,6 +73,10 @@ def post_detail(request, pk):
     return render(request, "blog/post_detail.html", {**navigation_context(), "post": post})
 
 
+def accessibility_statement(request):
+    return render(request, "blog/accessibility_statement.html", navigation_context())
+
+
 @login_required
 def post_new(request):
     if request.method == "POST":
