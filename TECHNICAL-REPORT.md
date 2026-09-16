@@ -1,7 +1,7 @@
 # Technický stand-up report: DjangoStart
 
 **Datum:** 16. září 2026  
-**Testovaný commit:** `85d074a0c675ff3a62f2ad26fa2f4b73bb84768a`  
+**Testovaný commit:** `251b6d9`
 **Větev:** `copilot/basic-task-for-high-school-students`  
 **Běhové prostředí:** Windows, Python 3.12.6, Django 5.1.1, SQLite  
 **Rozsah:** výukový blog, registrace a přihlášení, role administrátora, bonusová zóna, přístupnost, lokální demo data.
@@ -11,7 +11,8 @@
 | Oblast | Stav | Důkaz |
 |---|---|---|
 | Výukový obsah | Hotovo | 11 lekcí v 8 kategoriích, z toho 8 lekcí s cílem, ukázkou kódu, výkladem a úkolem |
-| Běžný uživatel | Hotovo | Registrace, přihlášení, vytvoření článku a úprava pouze vlastních článků |
+| Běžný uživatel | Hotovo | Registrace, přihlášení, bonusová zóna a ISTQB materiály; správa článků je nepřístupná |
+| Správce obsahu | Hotovo | Pouze `is_staff=True` může vytvořit a upravit vlastní článek; cizí článek vrací `404` |
 | Administrace | Hotovo | Lokální účet `admin_demo` úspěšně otevře `/admin/` |
 | Bonusový obsah | Hotovo | `/bonus/` vyžaduje přihlášení; anonymní návštěvník dostává `302`, přihlášený uživatel `200` |
 | Přístupnost | Technický základ hotov | Přeskočení navigace, fokus, sémantika, responzivita, formulářové chyby, omezení animací a `/pristupnost/` |
@@ -24,7 +25,7 @@ Poslední úplné spuštění:
 
 ```text
 python manage.py test
-Ran 19 tests
+Ran 29 tests in 1.582s
 OK
 ```
 
@@ -38,10 +39,11 @@ OK
 | Kategorie | Filtrování článků podle kategorie | Prošlo |
 | Detail článku | Neveřejný koncept vrací `404` | Prošlo |
 | Přístupnost šablon | Odkaz pro přeskočení navigace, ARIA popisy formuláře a prohlášení o přístupnosti | Prošlo |
-| Vytvoření článku | Nepřihlášený návštěvník je přesměrován na přihlášení; autor se při vytvoření nastaví na aktuálního uživatele | Prošlo |
-| Úprava článku | Jiný uživatel nemůže upravit cizí článek | Prošlo |
+| Vytvoření článku | Nepřihlášený návštěvník je přesměrován; student dostane `403`; správce je nastaven jako autor | Prošlo |
+| Úprava článku | Student dostane `403`; správce může upravit vlastní článek, ale cizí článek vrací `404` | Prošlo |
 | Registrace | Nový uživatel vznikne, je přihlášen a vrácen na úvod | Prošlo |
 | Bonusová zóna | Anonymní návštěvník je přesměrován, přihlášený má přístup | Prošlo |
+| Navigace podle role | Student nevidí formulář článku; správce odkaz vidí | Prošlo |
 | Demo účty | Příkaz odmítne produkční nastavení; vývojový příkaz vytvoří administrátora a lokální soubor s údaji | Prošlo |
 
 ## Provedené integrační a manuální validace
