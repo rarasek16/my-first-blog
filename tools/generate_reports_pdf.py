@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+import argparse
 import re
 from datetime import date
 from pathlib import Path
 
-import reportlab
 from reportlab.lib import colors
 from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
@@ -44,11 +44,17 @@ LINE = colors.HexColor("#DCE1ED")
 
 
 def register_fonts() -> tuple[str, str]:
-    fonts_directory = Path(reportlab.__file__).resolve().parent / "fonts"
-    regular = fonts_directory / "Vera.ttf"
-    bold = fonts_directory / "VeraBd.ttf"
-    pdfmetrics.registerFont(TTFont("ReportSans", regular))
-    pdfmetrics.registerFont(TTFont("ReportSansBold", bold))
+    windows_fonts = Path(r"C:\Windows\Fonts")
+    regular = windows_fonts / "arial.ttf"
+    bold = windows_fonts / "arialbd.ttf"
+    if not regular.is_file() or not bold.is_file():
+        raise FileNotFoundError(
+            "Pro vytvoření českého PDF je vyžadován font Arial "
+            f"v adresáři {windows_fonts}."
+        )
+
+    pdfmetrics.registerFont(TTFont("ReportSans", str(regular)))
+    pdfmetrics.registerFont(TTFont("ReportSansBold", str(bold)))
     return "ReportSans", "ReportSansBold"
 
 
@@ -267,12 +273,12 @@ def draw_page(canvas, document) -> None:
     canvas.restoreState()
 
 
-def build_pdf() -> Path:
+def build_pdf(output_path: Path = OUTPUT_PATH) -> Path:
     regular, bold = register_fonts()
     styles = build_styles(regular, bold)
-    OUTPUT_PATH.parent.mkdir(exist_ok=True)
+    output_path.parent.mkdir(exist_ok=True)
     document = SimpleDocTemplate(
-        str(OUTPUT_PATH),
+        str(output_path),
         pagesize=A4,
         rightMargin=1.6 * cm,
         leftMargin=1.6 * cm,
@@ -325,8 +331,15 @@ def build_pdf() -> Path:
         story.extend(markdown_story(path.read_text(encoding="utf-8"), styles))
 
     document.build(story, onFirstPage=draw_page, onLaterPages=draw_page)
-    return OUTPUT_PATH
+    return output_path
 
 
 if __name__ == "__main__":
-    print(build_pdf())
+    parser = argparse.ArgumentParser(description="Vytvoří souhrnný PDF report DjangoStart.")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=OUTPUT_PATH,
+        help="Cesta k výslednému PDF souboru.",
+    )
+    print(build_pdf(parser.parse_args().output))

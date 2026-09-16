@@ -37,7 +37,13 @@ Souhrnný dokument s technickým stand-up reportem, ISTQB test planem a executio
 python tools/generate_reports_pdf.py
 ```
 
-Výstup vznikne v `reports/DjangoStart-technicke-a-testovaci-reporty.pdf`. Generátor vkládá font podporující českou diakritiku a načítá aktuální obsah z `TECHNICAL-REPORT.md`, `TEST-PLAN.md` a `TEST-REPORT.md`.
+Výstup vznikne v `reports/DjangoStart-technicke-a-testovaci-reporty.pdf`. Generátor vkládá systémový font Arial s podporou české diakritiky a načítá aktuální obsah z `TECHNICAL-REPORT.md`, `TEST-PLAN.md` a `TEST-REPORT.md`; při spuštění proto vyžaduje soubory `C:\Windows\Fonts\arial.ttf` a `arialbd.ttf`.
+
+Pokud má výchozí PDF otevřený prohlížeč, použij jinou výstupní cestu:
+
+```powershell
+python tools/generate_reports_pdf.py --output reports/DjangoStart-technicke-a-testovaci-reporty-opraveno.pdf
+```
 
 ## Lokální demo účty
 
