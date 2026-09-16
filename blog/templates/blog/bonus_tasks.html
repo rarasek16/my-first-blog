@@ -1,0 +1,44 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Bonusová zóna | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="bonus-hero">
+    <div>
+        <p class="eyebrow">Pouze pro přihlášené studenty</p>
+        <h1>Bonusová zóna</h1>
+        <p>Čtyři výzvy, které propojí jednotlivé kapitoly kurzu do projektů podobných skutečnému vývoji. Nejde o rychlost, ale o srozumitelné a ověřené řešení.</p>
+    </div>
+    <div class="bonus-badge" aria-label="Čtyři bonusové úkoly">
+        <strong>4</strong>
+        <span>praktické<br>výzvy</span>
+    </div>
+</section>
+
+<section class="bonus-intro" aria-labelledby="bonus-rules">
+    <h2 id="bonus-rules">Jak s úkoly pracovat</h2>
+    <ol>
+        <li>Přečti si zadání a vypiš si, jaká data a stránky aplikace potřebuje.</li>
+        <li>Rozděl práci na malé commity a po každém spusť testy.</li>
+        <li>Odevzdej odkaz na repozitář, krátké README a screenshot funkční aplikace.</li>
+    </ol>
+</section>
+
+<section class="bonus-grid" aria-label="Bonusové úkoly">
+    {% for task in bonus_tasks %}
+        <article class="bonus-card">
+            <div class="bonus-card-heading">
+                <span>{{ task.number }}</span>
+                <p>{{ task.level }}</p>
+            </div>
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.description }}</p>
+            <div class="success-criteria">
+                <h3>Hotovo, když</h3>
+                <p>{{ task.success }}</p>
+            </div>
+            <p class="bonus-joke"><span aria-hidden="true">#</span> {{ task.joke }}</p>
+        </article>
+    {% endfor %}
+</section>
+{% endblock %}

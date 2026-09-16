@@ -167,6 +167,19 @@ class PostViewTests(TestCase):
 
         self.assertRedirects(response, reverse("post_list"))
 
+    def test_bonus_tasks_require_login(self):
+        response = self.client.get(reverse("bonus_tasks"))
+
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('bonus_tasks')}")
+
+    def test_bonus_tasks_are_available_to_authenticated_user(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("bonus_tasks"))
+
+        self.assertContains(response, "Bonusová zóna")
+        self.assertContains(response, "Katalog knih pro třídu")
+
     def test_post_edit_limited_to_author(self):
         post = Post.objects.create(
             author=self.author,

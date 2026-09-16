@@ -40,6 +40,41 @@ COURSE_MODULES = (
     },
 )
 
+BONUS_TASKS = (
+    {
+        "number": "01",
+        "title": "Katalog knih pro třídu",
+        "level": "Databáze a administrace",
+        "description": "Vytvoř model Book s názvem, autorem, rokem vydání a dostupností. Zaregistruj jej v adminu a zobraz knihy na veřejné stránce.",
+        "success": "Katalog zobrazuje data z databáze, umí filtrovat dostupné knihy a každá kniha má detailní stránku.",
+        "joke": "Kniha bez migrace je jako knihovna bez katalogu: možná tam je, ale nikdo ji nenajde.",
+    },
+    {
+        "number": "02",
+        "title": "Bezpečná školní nástěnka",
+        "level": "Formuláře a oprávnění",
+        "description": "Přidej oznámení, které může vytvořit přihlášený uživatel. Autor smí upravit nebo smazat jen vlastní oznámení.",
+        "success": "Formulář validuje data, používá CSRF token a test ověří, že cizí oznámení nelze upravit.",
+        "joke": "Neoprávněná úprava cizího příspěvku není spolupráce. Je to 403 s dramatickou hudbou.",
+    },
+    {
+        "number": "03",
+        "title": "Hledání bez chaosu",
+        "level": "QuerySety a uživatelské rozhraní",
+        "description": "Doplň vyhledávání podle názvu a kategorii. Prázdný hledaný výraz nesmí rozbít stránku ani zobrazit chybu databáze.",
+        "success": "Výsledky odpovídají zadání, URL jde sdílet a prázdný stav nabízí uživateli srozumitelný další krok.",
+        "joke": "SELECT * je občas rychlý začátek. Stejně jako věta „určitě to funguje“ před spuštěním testů.",
+    },
+    {
+        "number": "04",
+        "title": "Nasazení s klidnou hlavou",
+        "level": "Testování a produkce",
+        "description": "Připrav projekt k nasazení: přidej README, spusť testy, nastav proměnné prostředí a zkontroluj chybové stránky.",
+        "success": "Repozitář obsahuje návod, testy procházejí, tajné údaje nejsou v Gitu a nasazená aplikace má správné ALLOWED_HOSTS.",
+        "joke": "DEBUG=True v produkci je jako nechat učebnu otevřenou po zvonění: někdo tam vždy najde něco, co neměl.",
+    },
+)
+
 
 def navigation_context():
     return {"categories": Category.objects.all()}
@@ -76,6 +111,11 @@ def post_detail(request, pk):
 
 def accessibility_statement(request):
     return render(request, "blog/accessibility_statement.html", navigation_context())
+
+
+@login_required
+def bonus_tasks(request):
+    return render(request, "blog/bonus_tasks.html", {"bonus_tasks": BONUS_TASKS})
 
 
 def register(request):

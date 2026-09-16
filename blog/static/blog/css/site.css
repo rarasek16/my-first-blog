@@ -123,6 +123,11 @@ textarea:focus-visible {
     text-underline-offset: 3px;
 }
 
+.bonus-link {
+    color: var(--violet-dark);
+    font-weight: 800;
+}
+
 .main-nav > a:not(.button):hover,
 .link-button:hover {
     color: var(--violet);
@@ -452,6 +457,162 @@ textarea:focus-visible {
     text-align: right;
 }
 
+.bonus-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 58px clamp(26px, 7vw, 86px);
+    border-radius: 28px;
+    background: linear-gradient(135deg, #25214a, #4e32bd);
+    color: var(--white);
+}
+
+.bonus-hero .eyebrow {
+    color: var(--mint);
+}
+
+.bonus-hero h1 {
+    margin: 0;
+    font-size: clamp(2.6rem, 5vw, 4.5rem);
+    letter-spacing: -0.06em;
+    line-height: 1;
+}
+
+.bonus-hero > div:first-child > p:last-child {
+    max-width: 650px;
+    margin: 20px 0 0;
+    color: #e5e3fb;
+}
+
+.bonus-badge {
+    display: grid;
+    min-width: 138px;
+    min-height: 138px;
+    place-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    text-align: center;
+}
+
+.bonus-badge strong {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.bonus-badge span {
+    margin-top: 5px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    line-height: 1.25;
+    text-transform: uppercase;
+}
+
+.bonus-intro {
+    max-width: 850px;
+    margin: 60px auto 0;
+    padding: 25px 30px;
+    border-left: 5px solid var(--violet);
+    border-radius: 0 14px 14px 0;
+    background: var(--white);
+}
+
+.bonus-intro h2,
+.bonus-card h2 {
+    margin: 0;
+    letter-spacing: -0.035em;
+}
+
+.bonus-intro ol {
+    margin: 15px 0 0;
+    padding-left: 22px;
+}
+
+.bonus-intro li + li {
+    margin-top: 7px;
+}
+
+.bonus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 32px;
+}
+
+.bonus-card {
+    padding: 30px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: var(--white);
+}
+
+.bonus-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bonus-card-heading span {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 9px;
+    background: #f0edff;
+    color: var(--violet-dark);
+    font-size: 0.76rem;
+    font-weight: 850;
+}
+
+.bonus-card-heading p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 750;
+}
+
+.bonus-card h2 {
+    margin-top: 20px;
+    font-size: 1.45rem;
+}
+
+.bonus-card > p {
+    color: var(--muted);
+}
+
+.success-criteria {
+    margin-top: 21px;
+    padding: 16px;
+    border-radius: 11px;
+    background: #eefaf5;
+}
+
+.success-criteria h3 {
+    margin: 0;
+    color: #176345;
+    font-size: 0.85rem;
+}
+
+.success-criteria p {
+    margin: 6px 0 0;
+    font-size: 0.88rem;
+}
+
+.bonus-joke {
+    margin: 20px 0 0 !important;
+    color: var(--violet-dark) !important;
+    font-size: 0.84rem;
+    font-style: italic;
+}
+
+.bonus-joke span {
+    color: var(--violet);
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-style: normal;
+    font-weight: 900;
+}
+
 .post-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -750,6 +911,10 @@ textarea:focus-visible {
     .post-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .bonus-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 640px) {
@@ -765,7 +930,7 @@ textarea:focus-visible {
         gap: 12px;
     }
 
-    .main-nav > a:not(.button):not(.register-link),
+    .main-nav > a:not(.button):not(.register-link):not(.bonus-link),
     .link-button {
         display: none;
     }
@@ -819,5 +984,17 @@ textarea:focus-visible {
         margin-top: 35px;
         padding: 30px 23px;
         border-radius: 16px;
+    }
+
+    .bonus-hero {
+        align-items: start;
+        flex-direction: column;
+        padding: 38px 27px;
+        border-radius: 20px;
+    }
+
+    .bonus-badge {
+        min-width: 110px;
+        min-height: 110px;
     }
 }
