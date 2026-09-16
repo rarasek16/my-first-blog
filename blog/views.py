@@ -75,6 +75,48 @@ BONUS_TASKS = (
     },
 )
 
+TESTING_STAGES = (
+    ("01", "Plánuj", "Vymez cíl, rozsah, rizika, prostředí a kritéria hotového testování."),
+    ("02", "Navrhuj", "Převeď požadavky na testovací scénáře, data a očekávané výsledky."),
+    ("03", "Prováděj", "Spusť automatické i ruční testy, porovnej skutečný a očekávaný výsledek."),
+    ("04", "Reportuj", "Zapiš stav, vady, závažnost, důkazy a doporučení pro další krok."),
+)
+
+TEST_SCENARIOS = (
+    {
+        "id": "TS-01",
+        "risk": "4/5",
+        "title": "Přístup do bonusové zóny",
+        "precondition": "Návštěvník není přihlášen.",
+        "steps": "Otevři /bonus/ v anonymním okně prohlížeče.",
+        "expected": "Aplikace přesměruje návštěvníka na přihlášení a po přihlášení vrátí do bonusové zóny.",
+    },
+    {
+        "id": "TS-02",
+        "risk": "5/5",
+        "title": "Registrace s rozdílnými hesly",
+        "precondition": "Uživatelské jméno ještě v databázi neexistuje.",
+        "steps": "Vyplň registraci a do obou polí zadej různá hesla.",
+        "expected": "Formulář zobrazí chybu a nový účet nevznikne.",
+    },
+    {
+        "id": "TS-03",
+        "risk": "4/5",
+        "title": "Ochrana cizího článku",
+        "precondition": "Existují dva přihlášení uživatelé a článek autora A.",
+        "steps": "Jako uživatel B otevři URL pro úpravu článku autora A.",
+        "expected": "Aplikace vrátí 404; uživatel B nemůže data zobrazit ani změnit.",
+    },
+    {
+        "id": "TS-04",
+        "risk": "3/5",
+        "title": "Publikování a koncept",
+        "precondition": "Existuje publikovaný článek i koncept bez data publikování.",
+        "steps": "Otevři úvodní seznam a detail konceptu.",
+        "expected": "Seznam obsahuje jen publikovaný článek; detail konceptu vrátí 404.",
+    },
+)
+
 
 def navigation_context():
     return {"categories": Category.objects.all()}
@@ -116,6 +158,15 @@ def accessibility_statement(request):
 @login_required
 def bonus_tasks(request):
     return render(request, "blog/bonus_tasks.html", {"bonus_tasks": BONUS_TASKS})
+
+
+@login_required
+def testing_lab(request):
+    return render(
+        request,
+        "blog/testing_lab.html",
+        {"testing_stages": TESTING_STAGES, "test_scenarios": TEST_SCENARIOS},
+    )
 
 
 def register(request):

@@ -1,0 +1,64 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}ISTQB laboratoř | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="bonus-hero testing-hero">
+    <div>
+        <p class="eyebrow">Pouze pro přihlášené studenty</p>
+        <h1>ISTQB laboratoř</h1>
+        <p>Testování není hledání chyb naslepo. Je to systematická práce s rizikem, scénářem, očekáváním a důkazem.</p>
+    </div>
+    <div class="bonus-badge" aria-label="Čtyři kroky testování">
+        <strong>4</strong>
+        <span>kroky<br>testování</span>
+    </div>
+</section>
+
+<section class="testing-stages" aria-labelledby="stages-title">
+    <p class="eyebrow">Metodika</p>
+    <h2 id="stages-title">Testovací cyklus</h2>
+    <div class="testing-stage-grid">
+        {% for number, title, description in testing_stages %}
+            <article>
+                <span>{{ number }}</span>
+                <h3>{{ title }}</h3>
+                <p>{{ description }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="scenario-guide" aria-labelledby="scenario-title">
+    <p class="eyebrow">Nastavení scénáře</p>
+    <h2 id="scenario-title">Každý test musí odpovědět na pět otázek</h2>
+    <ol>
+        <li><strong>Co ověřuji?</strong> Napiš název a odkaz na požadavek nebo riziko.</li>
+        <li><strong>V jakém stavu?</strong> Uveď předpoklady: účet, data, prohlížeč a oprávnění.</li>
+        <li><strong>Jaký krok provedu?</strong> Kroky musí být krátké a opakovatelné jiným člověkem.</li>
+        <li><strong>Co očekávám?</strong> Výsledek musí být měřitelný: HTTP stav, text, uložený záznam nebo viditelná změna.</li>
+        <li><strong>Jaký je skutečný výsledek?</strong> Připoj důkaz: screenshot, log, výpis testu nebo číslo commitu.</li>
+    </ol>
+</section>
+
+<section class="scenario-section" aria-labelledby="scenarios-title">
+    <div class="section-heading">
+        <p class="eyebrow">Scénáře projektu</p>
+        <h2 id="scenarios-title">Vyzkoušej si testovat DjangoStart</h2>
+    </div>
+    <div class="scenario-grid">
+        {% for scenario in test_scenarios %}
+            <article class="scenario-card">
+                <div><span>{{ scenario.id }}</span><strong>Riziko {{ scenario.risk }}</strong></div>
+                <h3>{{ scenario.title }}</h3>
+                <dl>
+                    <dt>Předpoklad</dt><dd>{{ scenario.precondition }}</dd>
+                    <dt>Kroky</dt><dd>{{ scenario.steps }}</dd>
+                    <dt>Očekávaný výsledek</dt><dd>{{ scenario.expected }}</dd>
+                </dl>
+                <p class="scenario-report">Do reportu napiš: PASS / FAIL, skutečný výsledek, důkaz a závažnost případné vady.</p>
+            </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

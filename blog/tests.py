@@ -164,6 +164,20 @@ class PostViewTests(TestCase):
         self.assertRedirects(response, reverse("post_list"))
         self.assertTrue(get_user_model().objects.filter(username="new_student").exists())
 
+    def test_registration_rejects_mismatched_passwords(self):
+        response = self.client.post(
+            reverse("register"),
+            {
+                "username": "invalid_student",
+                "password1": "Strong-passphrase-2026",
+                "password2": "Different-passphrase-2026",
+            },
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "The two password fields")
+        self.assertFalse(get_user_model().objects.filter(username="invalid_student").exists())
+
     def test_authenticated_user_is_not_shown_registration_form(self):
         self.client.force_login(self.author)
 
@@ -183,6 +197,28 @@ class PostViewTests(TestCase):
 
         self.assertContains(response, "Bonusová zóna")
         self.assertContains(response, "Katalog knih pro třídu")
+        self.assertContains(response, "Bonusová zóna")
+
+    def test_testing_lab_requires_login(self):
+        response = self.client.get(reverse("testing_lab"))
+
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('testing_lab')}")
+
+    def test_testing_lab_shows_scenarios_to_authenticated_user(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("testing_lab"))
+
+        self.assertContains(response, "ISTQB laboratoř")
+        self.assertContains(response, "Registrace s rozdílnými hesly")
+
+    def test_authenticated_navigation_includes_bonus_zone(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("post_list"))
+
+        self.assertContains(response, reverse("bonus_tasks"))
+
 
     def test_post_edit_limited_to_author(self):
         post = Post.objects.create(
@@ -216,3 +252,9 @@ class DemoAccountsCommandTests(TestCase):
         admin = get_user_model().objects.get(username="admin_demo")
         self.assertTrue(admin.is_staff)
         self.assertTrue(admin.is_superuser)
+        self.assertEqual(
+            get_user_model().objects.filter(
+                username__in=["ada_demo", "bruno_demo", "cyril_demo", "admin_demo"]
+            ).count(),
+            4,
+        )

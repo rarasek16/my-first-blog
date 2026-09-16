@@ -24,6 +24,15 @@
     </ol>
 </section>
 
+<section class="testing-promo" aria-labelledby="testing-promo-title">
+    <div>
+        <p class="eyebrow">Bonus pro budoucí testery</p>
+        <h2 id="testing-promo-title">ISTQB laboratoř</h2>
+        <p>Nauč se převést požadavek na testovací scénář, určit jeho riziko a zapsat výsledek tak, aby mu rozuměl vývojář i vedoucí projektu.</p>
+    </div>
+    <a class="button" href="{% url 'testing_lab' %}">Otevřít metodiku testování</a>
+</section>
+
 <section class="bonus-grid" aria-label="Bonusové úkoly">
     {% for task in bonus_tasks %}
         <article class="bonus-card">
