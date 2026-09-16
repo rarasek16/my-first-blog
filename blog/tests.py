@@ -212,6 +212,19 @@ class PostViewTests(TestCase):
         self.assertContains(response, "ISTQB laboratoř")
         self.assertContains(response, "Registrace s rozdílnými hesly")
 
+    def test_testing_reports_require_login(self):
+        response = self.client.get(reverse("testing_reports"))
+
+        self.assertRedirects(response, f"{reverse('login')}?next={reverse('testing_reports')}")
+
+    def test_testing_reports_show_execution_results_to_authenticated_user(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("testing_reports"))
+
+        self.assertContains(response, "25")
+        self.assertContains(response, "Reziduální rizika")
+
     def test_authenticated_navigation_includes_bonus_zone(self):
         self.client.force_login(self.author)
 

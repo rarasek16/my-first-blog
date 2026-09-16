@@ -8,6 +8,7 @@ urlpatterns = [
     path("accounts/register/", views.register, name="register"),
     path("bonus/", views.bonus_tasks, name="bonus_tasks"),
     path("bonus/testovani/", views.testing_lab, name="testing_lab"),
+    path("bonus/testovani/reporty/", views.testing_reports, name="testing_reports"),
     path("category/<slug:category_slug>/", views.post_list, name="post_list_by_category"),
     path("post/new/", views.post_new, name="post_new"),
     path("post/<int:pk>/", views.post_detail, name="post_detail"),

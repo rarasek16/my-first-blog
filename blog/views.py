@@ -117,6 +117,14 @@ TEST_SCENARIOS = (
     },
 )
 
+REPORT_RISKS = (
+    ("4/5", "Veřejná registrace", "Před veřejným provozem doplnit ověření e-mailu a omezení pokusů."),
+    ("3/5", "Verze Djanga", "Sjednotit verzi v requirements.txt s ověřeným produkčním prostředím."),
+    ("3/5", "Produkční konfigurace", "Nastavit proměnné prostředí a spustit check --deploy."),
+    ("3/5", "Formální přístupnost", "Doplnit kontakt a provést nezávislý audit s asistivními technologiemi."),
+    ("2/5", "Hlasové čtení", "Ověřit český hlas ve vybraných prohlížečích a zařízeních."),
+)
+
 
 def navigation_context():
     return {"categories": Category.objects.all()}
@@ -166,6 +174,15 @@ def testing_lab(request):
         request,
         "blog/testing_lab.html",
         {"testing_stages": TESTING_STAGES, "test_scenarios": TEST_SCENARIOS},
+    )
+
+
+@login_required
+def testing_reports(request):
+    return render(
+        request,
+        "blog/testing_reports.html",
+        {"test_scenarios": TEST_SCENARIOS, "report_risks": REPORT_RISKS},
     )
 
 

@@ -61,4 +61,13 @@
         {% endfor %}
     </div>
 </section>
+
+<section class="testing-promo report-promo" aria-labelledby="report-promo-title">
+    <div>
+        <p class="eyebrow">Výstup testování</p>
+        <h2 id="report-promo-title">Prohlédni si hotový test plan a report</h2>
+        <p>Podívej se, jak se z testovacích scénářů stává přehled pro tým: pokrytí, PASS/FAIL, vady, závažnost a rozhodnutí o nasazení.</p>
+    </div>
+    <a class="button" href="{% url 'testing_reports' %}">Otevřít reporty</a>
+</section>
 {% endblock %}

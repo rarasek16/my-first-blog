@@ -1,0 +1,73 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Test plan a report | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="bonus-hero testing-hero">
+    <div>
+        <p class="eyebrow">Pouze pro přihlášené studenty</p>
+        <h1>Test plan a report</h1>
+        <p>Vzor kompletního výstupu testování: co se ověřovalo, jaké scénáře byly zvolené, co prošlo a co před nasazením ještě vyžaduje pozornost.</p>
+    </div>
+    <div class="bonus-badge" aria-label="Dvacet pět úspěšných testů">
+        <strong>25</strong>
+        <span>testů<br>PASS</span>
+    </div>
+</section>
+
+<section class="report-overview" aria-labelledby="plan-title">
+    <div class="section-heading">
+        <p class="eyebrow">Část 1: Test plan</p>
+        <h2 id="plan-title">Co, proč a jak testujeme</h2>
+    </div>
+    <div class="report-cards">
+        <article><h3>Cíl</h3><p>Ověřit funkční, bezpečný a přístupný tok od veřejného článku přes registraci po chráněný bonusový obsah.</p></article>
+        <article><h3>Rozsah</h3><p>Články, účty, oprávnění, admin, bonusy, testovací laboratoř, demo data a přístupnost rozhraní.</p></article>
+        <article><h3>Techniky</h3><p>Ekvivalentní třídy, hraniční hodnoty, rozhodovací tabulka, stavové přechody, případy použití a průzkumné testování.</p></article>
+    </div>
+</section>
+
+<section class="report-scenarios" aria-labelledby="report-scenarios-title">
+    <p class="eyebrow">Prioritní scénáře</p>
+    <h2 id="report-scenarios-title">Příklad dohledatelnosti od rizika k testu</h2>
+    <div class="report-table-wrapper" tabindex="0">
+        <table>
+            <thead><tr><th>ID</th><th>Scénář</th><th>Riziko</th><th>Očekávaný výsledek</th></tr></thead>
+            <tbody>
+                {% for scenario in test_scenarios %}
+                    <tr><td>{{ scenario.id }}</td><td>{{ scenario.title }}</td><td>{{ scenario.risk }}</td><td>{{ scenario.expected }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <p class="report-note">Další scénáře pokrývají vytvoření článku, seed dat, administraci, přístupnost, hlasové čtení a validaci formulářů.</p>
+</section>
+
+<section class="report-result" aria-labelledby="result-title">
+    <div>
+        <p class="eyebrow">Část 2: Test execution report</p>
+        <h2 id="result-title">Výsledek poslední exekuce</h2>
+        <p>Automatický balík ověřil komponenty a integrační toky na izolované testovací databázi. Django kontrola i kontrola formátování zdrojů proběhly bez problémů.</p>
+    </div>
+    <dl class="report-metrics">
+        <div><dt>Spuštěno</dt><dd>25</dd></div>
+        <div><dt>PASS</dt><dd>25</dd></div>
+        <div><dt>FAIL</dt><dd>0</dd></div>
+        <div><dt>Blokováno</dt><dd>0</dd></div>
+    </dl>
+</section>
+
+<section class="report-risks" aria-labelledby="risks-title">
+    <p class="eyebrow">Co zbývá</p>
+    <h2 id="risks-title">Reziduální rizika a jejich závažnost</h2>
+    <div class="risk-list">
+        {% for score, area, action in report_risks %}
+            <article>
+                <strong>Skóre {{ score }}</strong>
+                <div><h3>{{ area }}</h3><p>{{ action }}</p></div>
+            </article>
+        {% endfor %}
+    </div>
+    <p class="report-note">Lokální výuka je schválená. Veřejné nasazení je podmíněné odstraněním rizik registrace, produkční konfigurace a nezávislým přístupnostním auditem.</p>
+</section>
+{% endblock %}
