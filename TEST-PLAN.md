@@ -31,8 +31,8 @@ Tento plán používá původně formulované principy testování v duchu ISTQB
 
 | ID | Riziko | Dopad | Pravděpodobnost | Skóre | Priorita |
 |---|---|---:|---:|---:|---|
-| R-01 | Nepřihlášený uživatel získá bonusový obsah nebo vytvoří článek | 5 | 2 | 10 | Vysoká |
-| R-02 | Uživatel upraví cizí článek | 5 | 2 | 10 | Vysoká |
+| R-01 | Nepřihlášený nebo studentský účet získá formulář pro správu článků | 5 | 2 | 10 | Vysoká |
+| R-02 | Správce upraví cizí článek | 5 | 2 | 10 | Vysoká |
 | R-03 | Neplatná registrace vytvoří nefunkční účet | 4 | 3 | 12 | Kritická |
 | R-04 | Demo hesla se dostanou do repozitáře nebo produkce | 5 | 2 | 10 | Vysoká |
 | R-05 | Výukové materiály se při seedování zdvojí | 3 | 3 | 9 | Střední |
@@ -45,9 +45,9 @@ Tento plán používá původně formulované principy testování v duchu ISTQB
 
 | Technika | Použití |
 |---|---|
-| Ekvivalentní třídy | platná / neplatná registrace, přihlášený / nepřihlášený uživatel |
+| Ekvivalentní třídy | platná / neplatná registrace, anonymní / student / správce |
 | Analýza hraničních hodnot | prázdná povinná pole, délka a shoda hesel, prázdné vyhledávání |
-| Rozhodovací tabulka | přístup k vytvoření, úpravě a bonusové zóně podle stavu přihlášení a vlastnictví |
+| Rozhodovací tabulka | přístup k vytvoření, úpravě a bonusové zóně podle role a vlastnictví |
 | Stavový přechod | anonymní návštěvník → registrovaný → přihlášený → odhlášený |
 | Testování podle případů použití | vytvoření článku, otevření administrace, vypracování bonusového úkolu |
 | Průzkumné testování | ovládání klávesnicí, mobilní rozvržení, čtečka obrazovky a hlasové čtení |
@@ -69,7 +69,11 @@ Tento plán používá původně formulované principy testování v duchu ISTQB
 | TC-11 | R-06 | Otevření formuláře článku | Pole mají labely, popis a místo pro chybu | Ano + ručně | Střední |
 | TC-12 | R-07 | Prohlížeč podporuje / nepodporuje Web Speech API | K dispozici jsou ovladače nebo srozumitelná informace | Automatizace načtení + ručně | Nízká |
 | TC-13 | Funkční | `admin_demo` se přihlásí na `/admin/` | Úspěšný přístup administrátora | Ano | Vysoká |
-| TC-14 | Funkční | Autor odešle minimální formulář článku | Článek je uložen s aktuálním autorem | Ano | Vysoká |
+| TC-14 | R-01 | Studentský účet otevře `/post/new/` | Stav `403`; formulář a odkaz v navigaci nejsou dostupné | Ano | Vysoká |
+| TC-15 | R-01 | Správce odešle minimální formulář článku | Článek je uložen s aktuálním správcem | Ano | Vysoká |
+| TC-16 | R-01 | Studentský účet otevře vlastní `/post/<pk>/edit/` | Stav `403` | Ano | Vysoká |
+| TC-17 | R-02 | Správce otevře URL pro úpravu cizího článku | Stav `404` | Ano | Vysoká |
+| TC-18 | Funkční | Správce upraví vlastní článek | Změněný článek je uložen | Ano | Vysoká |
 
 ## 6. Testovací data
 

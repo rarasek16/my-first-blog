@@ -29,6 +29,16 @@ python manage.py runserver
 
 Pro správu článků založ administrátora příkazem `python manage.py createsuperuser` a otevři `/admin/`.
 
+## PDF reporty
+
+Souhrnný dokument s technickým stand-up reportem, ISTQB test planem a execution reportem vytvoříš příkazem:
+
+```powershell
+python tools/generate_reports_pdf.py
+```
+
+Výstup vznikne v `reports/DjangoStart-technicke-a-testovaci-reporty.pdf`. Generátor vkládá font podporující českou diakritiku a načítá aktuální obsah z `TECHNICAL-REPORT.md`, `TEST-PLAN.md` a `TEST-REPORT.md`.
+
 ## Lokální demo účty
 
 Pouze při lokálním vývoji (`DEBUG=True`) vytvoříš tři studentské demo účty a jeden administrátorský účet příkazem:
@@ -39,7 +49,7 @@ python manage.py create_demo_accounts
 
 Vygenerovaná jména a náhodná hesla jsou uložena v `local/demo-accounts.txt`. Adresář `local/` je ignorovaný Gitem, takže přihlašovací údaje nejsou součástí repozitáře a nesmí se nasazovat ani zveřejňovat.
 
-Účet `admin_demo` má přístup na `/admin/`; ostatní demo účty mohou vytvářet a upravovat pouze své články přes formulář `/post/new/`.
+Účet `admin_demo` má přístup na `/admin/` a jako správce může vytvářet i upravovat vlastní články přes formulář `/post/new/`. Studentské demo účty mají přístup pouze k bonusové zóně a studijním materiálům; formulář článků ani správu článků nemají k dispozici.
 
 Pokud chceš obnovit všechny vzorové lekce autora `django_start` na aktuální obsah kurzu, spusť:
 
@@ -54,7 +64,7 @@ Tento přepínač úmyslně aktualizuje jen vzorové lekce; běžné články st
 1. Na začátku modulu formulujte společně jeho cíl a aktivujte předchozí znalosti krátkou otázkou nebo miniúlohou.
 2. Při výkladu spusťte ukázku kódu v připraveném projektu a nechte studenty předpovědět výsledek ještě před spuštěním.
 3. Praktický úkol nechte řešit samostatně nebo ve dvojici; hodnotí se funkčnost, čitelnost a vysvětlení rozhodnutí.
-4. Na konci modulu studenti zapíší do vlastního článku, co fungovalo, jakou chybu potkali a jak ji opravili.
+4. Na konci modulu studenti odevzdají odkaz na vlastní repozitář a stručně popíšou, co fungovalo, jakou chybu potkali a jak ji opravili.
 
 Závěrečný projekt může být blog, katalog knih, školní nástěnka, rezervační formulář nebo jednoduchá evidence. Student by měl umět navrhnout modely, vytvořit URL, view a šablony, pracovat s formulářem a přihlášením, napsat základní testy a projekt nasadit.
 

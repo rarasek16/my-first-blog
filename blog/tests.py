@@ -105,6 +105,19 @@ class PostViewTests(TestCase):
 
         self.assertEqual(response.status_code, 404)
 
+    def test_student_cannot_edit_own_article(self):
+        post = Post.objects.create(
+            author=self.author,
+            title="Student article",
+            text="Body",
+            published_date=timezone.now(),
+        )
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("post_edit", kwargs={"pk": post.pk}))
+
+        self.assertEqual(response.status_code, 403)
+
     def test_post_detail_includes_navigation_categories(self):
         post = Post.objects.create(
             author=self.author,
@@ -124,6 +137,8 @@ class PostViewTests(TestCase):
         self.assertIn(reverse("login"), response.url)
 
     def test_post_create_sets_author(self):
+        self.author.is_staff = True
+        self.author.save(update_fields=["is_staff"])
         self.client.force_login(self.author)
 
         response = self.client.post(
@@ -136,7 +151,16 @@ class PostViewTests(TestCase):
         self.assertEqual(post.author, self.author)
         self.assertIsNotNone(post.published_date)
 
+    def test_student_cannot_create_article(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("post_new"))
+
+        self.assertEqual(response.status_code, 403)
+
     def test_post_form_has_programmatic_help_and_error_descriptions(self):
+        self.author.is_staff = True
+        self.author.save(update_fields=["is_staff"])
         self.client.force_login(self.author)
 
         response = self.client.get(reverse("post_new"))
@@ -231,9 +255,23 @@ class PostViewTests(TestCase):
         response = self.client.get(reverse("post_list"))
 
         self.assertContains(response, reverse("bonus_tasks"))
+        self.assertNotContains(response, reverse("post_new"))
+
+    def test_administrator_navigation_includes_article_form(self):
+        self.author.is_staff = True
+        self.author.save(update_fields=["is_staff"])
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("post_list"))
+
+        self.assertContains(response, reverse("post_new"))
 
 
     def test_post_edit_limited_to_author(self):
+        self.author.is_staff = True
+        self.author.save(update_fields=["is_staff"])
+        self.other_user.is_staff = True
+        self.other_user.save(update_fields=["is_staff"])
         post = Post.objects.create(
             author=self.author,
             title="Owned",
@@ -245,6 +283,26 @@ class PostViewTests(TestCase):
         response = self.client.get(reverse("post_edit", kwargs={"pk": post.pk}))
 
         self.assertEqual(response.status_code, 404)
+
+    def test_staff_author_can_edit_own_article(self):
+        self.author.is_staff = True
+        self.author.save(update_fields=["is_staff"])
+        post = Post.objects.create(
+            author=self.author,
+            title="Owned",
+            text="Body",
+            published_date=timezone.now(),
+        )
+        self.client.force_login(self.author)
+
+        response = self.client.post(
+            reverse("post_edit", kwargs={"pk": post.pk}),
+            {"title": "Updated", "text": "Updated body", "category": self.category.id},
+        )
+
+        self.assertEqual(response.status_code, 302)
+        post.refresh_from_db()
+        self.assertEqual(post.title, "Updated")
 
 
 class DemoAccountsCommandTests(TestCase):

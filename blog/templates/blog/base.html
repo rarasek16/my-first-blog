@@ -22,7 +22,9 @@
             <a href="{% url 'post_list' %}#plan">Studijní plán</a>
             {% if user.is_authenticated %}
                 <a class="bonus-link" href="{% url 'bonus_tasks' %}">Bonusová zóna</a>
-                <a class="button button-small" href="{% url 'post_new' %}">Napsat článek</a>
+                {% if user.is_staff %}
+                    <a class="button button-small" href="{% url 'post_new' %}">Napsat článek</a>
+                {% endif %}
                 <form action="{% url 'logout' %}" method="post">
                     {% csrf_token %}
                     <button class="link-button" type="submit">Odhlásit</button>

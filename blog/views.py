@@ -1,5 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
@@ -203,6 +204,9 @@ def register(request):
 
 @login_required
 def post_new(request):
+    if not request.user.is_staff:
+        raise PermissionDenied("Vytvářet články může pouze správce.")
+
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -223,6 +227,9 @@ def post_new(request):
 
 @login_required
 def post_edit(request, pk):
+    if not request.user.is_staff:
+        raise PermissionDenied("Upravovat články může pouze správce.")
+
     post = get_object_or_404(Post, pk=pk, author=request.user)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
