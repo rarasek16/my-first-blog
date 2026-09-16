@@ -19,7 +19,7 @@
 | Lokální demo | Hotovo | Migrace, seed obsahu a čtyři lokální účty vytvořeny příkazy Djanga |
 | Nasazení do produkce | Částečně připraveno | Existuje produkční nastavení, ale zbývá vyřešit otevřená rizika níže |
 
-## Provedené automatické testy
+## Automated tests
 
 Poslední úplné spuštění:
 
@@ -46,7 +46,7 @@ OK
 | Navigace podle role | Student nevidí formulář článku; správce odkaz vidí | Prošlo |
 | Demo účty | Příkaz odmítne produkční nastavení; vývojový příkaz vytvoří administrátora a lokální soubor s údaji | Prošlo |
 
-## Provedené integrační a manuální validace
+## Integration a manual validation
 
 | Kontrola | Příkaz / postup | Výsledek |
 |---|---|---|

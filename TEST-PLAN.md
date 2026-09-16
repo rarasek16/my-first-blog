@@ -17,15 +17,15 @@ Tento plán vychází z průmyslově používaných standardů a metodik testov�
 | Formulář článku, validace a výukové materiály | Právní certifikace přístupnosti |
 | Přístupnost rozhraní a hlasové čtení ve Web Speech API | Test fyzického hardwaru, lokálních hlasů a všech kombinací prohlížečů |
 
-## 2. Testovací úrovně a odpovědnosti
+## 2. Test levels a odpovědnosti
 
-| Úroveň | Zodpovědnost | Nástroj / postup | Výstup |
+| Test level | Zodpovědnost | Nástroj / postup | Výstup |
 |---|---|---|---|
-| Unit a component | Vývoj | Django `TestCase`, testovací databáze | Výsledek `python manage.py test` |
-| Integrace | Vývoj | migrace, seed příkazy, Django test client | Ověřené HTTP stavy a vytvořená data |
-| Systém | Vývoj + vyučující | lokální server, ruční scénáře | Checklist výsledků |
-| Akceptace | Vyučující | studenti podle zadání bonusových úkolů | Přijaté projekty a zpětná vazba |
-| Přístupnost | Vyučující + nezávislý tester | klávesnice, čtečka obrazovky, mobilní prohlížeč | Záznam bariér a opravných kroků |
+| Unit and component | Vývoj | Django `TestCase`, testovací databáze | Výsledek `python manage.py test` |
+| Integration | Vývoj | migrace, seed příkazy, Django test client | Ověřené HTTP stavy a vytvořená data |
+| System | Vývoj + vyučující | lokální server, ruční scénáře | Checklist výsledků |
+| Acceptance | Vyučující | studenti podle zadání bonusových úkolů | Přijaté projekty a zpětná vazba |
+| Accessibility | Vyučující + nezávislý tester | klávesnice, čtečka obrazovky, mobilní prohlížeč | Záznam bariér a opravných kroků |
 
 ## 3. Riziková analýza
 
@@ -52,9 +52,9 @@ Tento plán vychází z průmyslově používaných standardů a metodik testov�
 | Testování podle případů použití | vytvoření článku, otevření administrace, vypracování bonusového úkolu |
 | Průzkumné testování | ovládání klávesnicí, mobilní rozvržení, čtečka obrazovky a hlasové čtení |
 
-## 5. Test cases a dohledatelnost
+## 5. Test cases a traceability
 
-| ID | Riziko | Scénář | Očekávaný výsledek | Automatizace | Priorita |
+| ID | Riziko | Scénář | Očekávaný výsledek | Automation | Priorita |
 |---|---|---|---|---|---|
 | TC-01 | R-01 | Anonymní návštěvník otevře `/post/new/` | Přesměrování na přihlášení | Ano | Vysoká |
 | TC-02 | R-01 | Anonymní návštěvník otevře `/bonus/` | Přesměrování na přihlášení | Ano | Vysoká |
@@ -67,7 +67,7 @@ Tento plán vychází z průmyslově používaných standardů a metodik testov�
 | TC-09 | R-05 | Seed spustíme opakovaně | Obsah a kategorie se nezdvojí | Ano | Střední |
 | TC-10 | R-06 | Klávesnice vstoupí na úvodní stránku | První odkaz přeskočí navigaci na hlavní obsah | Ano + ručně | Střední |
 | TC-11 | R-06 | Otevření formuláře článku | Pole mají labely, popis a místo pro chybu | Ano + ručně | Střední |
-| TC-12 | R-07 | Prohlížeč podporuje / nepodporuje Web Speech API | K dispozici jsou ovladače nebo srozumitelná informace | Automatizace načtení + ručně | Nízká |
+| TC-12 | R-07 | Prohlížeč podporuje / nepodporuje Web Speech API | K dispozici jsou ovladače nebo srozumitelná informace | Automation načtení + ručně | Nízká |
 | TC-13 | Funkční | `admin_demo` se přihlásí na `/admin/` | Úspěšný přístup administrátora | Ano | Vysoká |
 | TC-14 | R-01 | Studentský účet otevře `/post/new/` | Stav `403`; formulář a odkaz v navigaci nejsou dostupné | Ano | Vysoká |
 | TC-15 | R-01 | Správce odešle minimální formulář článku | Článek je uložen s aktuálním správcem | Ano | Vysoká |

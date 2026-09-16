@@ -2,7 +2,7 @@
 
 **Datum exekuce:** 16. září 2026
 **Build / větev:** `copilot/basic-task-for-high-school-students`  
-**Úroveň:** component, integrace a omezená systémová validace  
+**Test level:** component, integration and limited system validation
 **Reference:** `TEST-PLAN.md`
 
 ## Souhrn
