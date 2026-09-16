@@ -30,7 +30,7 @@ from xml.sax.saxutils import escape
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_PATH = PROJECT_ROOT / "reports" / "DjangoStart-technicke-a-testovaci-reporty.pdf"
 REPORTS = (
-    ("Technický stand-up report", PROJECT_ROOT / "TECHNICAL-REPORT.md"),
+    ("Technical stand-up report", PROJECT_ROOT / "TECHNICAL-REPORT.md"),
     ("Test plan dle průmyslových metodik", PROJECT_ROOT / "TEST-PLAN.md"),
     ("Test execution report dle průmyslových metodik", PROJECT_ROOT / "TEST-REPORT.md"),
 )
@@ -266,10 +266,10 @@ def draw_page(canvas, document) -> None:
     canvas.line(1.6 * cm, height - 1.2 * cm, width - 1.6 * cm, height - 1.2 * cm)
     canvas.setFont("ReportSansBold", 8)
     canvas.setFillColor(VIOLET)
-    canvas.drawString(1.6 * cm, height - 0.95 * cm, "DJANGOSTART  /  TECHNICKÉ A TESTOVACÍ REPORTY")
+    canvas.drawString(1.6 * cm, height - 0.95 * cm, "DJANGOSTART  /  TECHNICAL AND TEST REPORTS")
     canvas.setFont("ReportSans", 8)
     canvas.setFillColor(MUTED)
-    canvas.drawRightString(width - 1.6 * cm, 0.85 * cm, f"Strana {document.page}")
+    canvas.drawRightString(width - 1.6 * cm, 0.85 * cm, f"Page {document.page}")
     canvas.restoreState()
 
 
@@ -284,23 +284,23 @@ def build_pdf(output_path: Path = OUTPUT_PATH) -> Path:
         leftMargin=1.6 * cm,
         topMargin=1.75 * cm,
         bottomMargin=1.45 * cm,
-        title="DjangoStart - Technické a testovací reporty",
+        title="DjangoStart - Technical and test reports",
         author="DjangoStart",
-        subject="Technický stand-up report a test documentation dle průmyslových metodik",
+        subject="Technical stand-up report and test documentation dle průmyslových metodik",
     )
     story: list[object] = [
         Spacer(1, 3.1 * cm),
         Paragraph("DjangoStart", styles["title"]),
-        Paragraph("Technické a testovací reporty", styles["title"]),
+        Paragraph("Technical and test reports", styles["title"]),
         Paragraph(
             "Souhrnný dokument pro stand-up, výuku a dohledatelné řízení kvality",
             styles["subtitle"],
         ),
         Table(
             [
-                [Paragraph("OBSAH", styles["table_header"]), Paragraph("3 reporty", styles["table"])],
-                [Paragraph("STAV TESTŮ", styles["table_header"]), Paragraph("29 / 29 PASS", styles["table"])],
-                [Paragraph("VYTVOŘENO", styles["table_header"]), Paragraph(date.today().strftime("%d. %m. %Y"), styles["table"])],
+                [Paragraph("CONTENT", styles["table_header"]), Paragraph("3 reports", styles["table"])],
+                [Paragraph("TEST STATUS", styles["table_header"]), Paragraph("29 / 29 PASS", styles["table"])],
+                [Paragraph("CREATED", styles["table_header"]), Paragraph(date.today().strftime("%d. %m. %Y"), styles["table"])],
             ],
             colWidths=[4.2 * cm, 9.2 * cm],
             style=TableStyle(
@@ -318,7 +318,7 @@ def build_pdf(output_path: Path = OUTPUT_PATH) -> Path:
         ),
         Spacer(1, 2 * cm),
         Paragraph(
-            "Dokument kombinuje technický stand-up report, Test plan a Test execution report "
+            "Dokument kombinuje Technical stand-up report, Test plan a Test execution report "
             "dle průmyslových standardů a metodik. "
             "Slouží jako podklad pro výuku, kontrolu postupu i rozhodování o dalším vydání.",
             styles["subtitle"],
