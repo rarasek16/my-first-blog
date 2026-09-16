@@ -29,6 +29,16 @@ python manage.py runserver
 
 Pro správu článků založ administrátora příkazem `python manage.py createsuperuser` a otevři `/admin/`.
 
+## Lokální demo účty
+
+Pouze při lokálním vývoji (`DEBUG=True`) vytvoříš tři demo účty příkazem:
+
+```powershell
+python manage.py create_demo_accounts
+```
+
+Vygenerovaná jména a náhodná hesla jsou uložena v `local/demo-accounts.txt`. Adresář `local/` je ignorovaný Gitem, takže přihlašovací údaje nejsou součástí repozitáře a nesmí se nasazovat ani zveřejňovat.
+
 Pokud chceš obnovit všechny vzorové lekce autora `django_start` na aktuální obsah kurzu, spusť:
 
 ```powershell

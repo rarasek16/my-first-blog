@@ -116,6 +116,13 @@ textarea:focus-visible {
     color: var(--muted);
 }
 
+.register-link {
+    color: var(--violet-dark);
+    font-weight: 750;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .main-nav > a:not(.button):hover,
 .link-button:hover {
     color: var(--violet);
@@ -370,16 +377,21 @@ textarea:focus-visible {
 
 .section-heading-row {
     display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 24px;
+    align-items: start;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .category-links {
     display: flex;
     flex-wrap: wrap;
-    justify-content: end;
-    gap: 8px;
+    justify-content: start;
+    gap: 9px;
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--white);
 }
 
 .category-links a {
@@ -394,6 +406,50 @@ textarea:focus-visible {
 .category-links a.active {
     background: #e9e4ff;
     color: var(--violet-dark);
+}
+
+.audio-controls {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 46px;
+    margin: 8px 0 16px;
+}
+
+.audio-button,
+.audio-stop {
+    min-height: 38px;
+    padding: 0 13px;
+    border: 1px solid var(--violet);
+    border-radius: 9px;
+    background: var(--white);
+    color: var(--violet-dark);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 750;
+}
+
+.audio-button[aria-pressed="true"],
+.audio-button:hover {
+    background: var(--violet);
+    color: var(--white);
+}
+
+.audio-stop:disabled {
+    border-color: var(--line);
+    color: var(--muted);
+    cursor: not-allowed;
+}
+
+.audio-status {
+    min-width: 13rem;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-align: right;
 }
 
 .post-grid {
@@ -622,6 +678,18 @@ textarea:focus-visible {
     color: #b34038 !important;
 }
 
+.account-note {
+    margin-top: 24px;
+    color: var(--muted);
+}
+
+.account-note a {
+    color: var(--violet-dark);
+    font-weight: 750;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 .site-footer {
     display: flex;
     justify-content: space-between;
@@ -697,7 +765,7 @@ textarea:focus-visible {
         gap: 12px;
     }
 
-    .main-nav > a:not(.button),
+    .main-nav > a:not(.button):not(.register-link),
     .link-button {
         display: none;
     }
@@ -734,6 +802,16 @@ textarea:focus-visible {
 
     .category-links {
         justify-content: start;
+    }
+
+    .audio-controls {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .audio-status {
+        min-width: 0;
+        text-align: left;
     }
 
     .article-detail,

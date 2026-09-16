@@ -7,6 +7,7 @@
     <title>{% block title %}Django start{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'blog/css/site.css' %}">
+    <script src="{% static 'blog/js/audio-reader.js' %}" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Přeskočit na hlavní obsah</a>
@@ -27,11 +28,17 @@
                 </form>
             {% else %}
                 <a class="button button-small" href="{% url 'login' %}">Přihlásit se</a>
+                <a class="register-link" href="{% url 'register' %}">Registrace</a>
             {% endif %}
         </nav>
     </header>
 
     <main id="main-content" tabindex="-1">
+        <div class="audio-controls" role="group" aria-label="Hlasové čtení stránky">
+            <button class="audio-button" type="button" data-audio-read aria-pressed="false">Přečíst stránku</button>
+            <button class="audio-stop" type="button" data-audio-stop disabled>Zastavit čtení</button>
+            <p class="audio-status" data-audio-status role="status" aria-live="polite"></p>
+        </div>
         {% block content %}{% endblock %}
     </main>
 

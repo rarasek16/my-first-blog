@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.core.management.base import CommandError
+from django.test import override_settings
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -145,6 +147,26 @@ class PostViewTests(TestCase):
         self.assertContains(response, "Prohlášení o přístupnosti")
         self.assertContains(response, "WCAG 2.2")
 
+    def test_registration_creates_and_logs_in_user(self):
+        response = self.client.post(
+            reverse("register"),
+            {
+                "username": "new_student",
+                "password1": "Strong-passphrase-2026",
+                "password2": "Strong-passphrase-2026",
+            },
+        )
+
+        self.assertRedirects(response, reverse("post_list"))
+        self.assertTrue(get_user_model().objects.filter(username="new_student").exists())
+
+    def test_authenticated_user_is_not_shown_registration_form(self):
+        self.client.force_login(self.author)
+
+        response = self.client.get(reverse("register"))
+
+        self.assertRedirects(response, reverse("post_list"))
+
     def test_post_edit_limited_to_author(self):
         post = Post.objects.create(
             author=self.author,
@@ -157,3 +179,10 @@ class PostViewTests(TestCase):
         response = self.client.get(reverse("post_edit", kwargs={"pk": post.pk}))
 
         self.assertEqual(response.status_code, 404)
+
+
+class DemoAccountsCommandTests(TestCase):
+    def test_command_rejects_non_development_settings(self):
+        with override_settings(DEBUG=False):
+            with self.assertRaises(CommandError):
+                call_command("create_demo_accounts")

@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from .models import Post
 
@@ -21,6 +23,17 @@ class PostForm(forms.ModelForm):
             "code_explanation": "Vysvětli, co dělají nejdůležitější řádky ukázky.",
             "practice_task": "Zadej samostatný úkol, kterým čtenář porozumění ověří.",
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs["aria-describedby"] = f"{name}-help {name}-errors"
+
+
+class RegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ("username", "password1", "password2")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

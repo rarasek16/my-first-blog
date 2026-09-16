@@ -1,0 +1,31 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Registrace | DjangoStart{% endblock %}
+
+{% block content %}
+<section class="editor-page registration-page">
+    <p class="eyebrow">Pro nové autory</p>
+    <h1>Vytvoř si účet</h1>
+    <p>Účet ti dovolí psát vlastní články a plnit bonusové úkoly. Použij jedinečné heslo, které nepoužíváš jinde.</p>
+    <form class="post-form" method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="form-error" role="alert">{{ form.non_field_errors }}</div>
+        {% endif %}
+        {% for field in form %}
+            <div class="form-field">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.help_text %}<div class="form-help" id="{{ field.name }}-help">{{ field.help_text }}</div>{% endif %}
+                <div id="{{ field.name }}-errors">
+                    {% for error in field.errors %}
+                        <p class="form-error" role="alert">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <button class="button" type="submit">Vytvořit účet</button>
+    </form>
+    <p class="account-note">Už účet máš? <a href="{% url 'login' %}">Přihlas se.</a></p>
+</section>
+{% endblock %}

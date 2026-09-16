@@ -1,8 +1,9 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
-from .forms import PostForm
+from .forms import PostForm, RegistrationForm
 from .models import Category, Post
 
 
@@ -75,6 +76,21 @@ def post_detail(request, pk):
 
 def accessibility_statement(request):
     return render(request, "blog/accessibility_statement.html", navigation_context())
+
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect("post_list")
+
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("post_list")
+    else:
+        form = RegistrationForm()
+    return render(request, "registration/register.html", {"form": form})
 
 
 @login_required
