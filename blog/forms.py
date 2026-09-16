@@ -27,7 +27,10 @@ class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
-            field.widget.attrs["aria-describedby"] = f"{name}-help {name}-errors"
+            descriptions = [f"{name}-errors"]
+            if field.help_text:
+                descriptions.insert(0, f"{name}-help")
+            field.widget.attrs["aria-describedby"] = " ".join(descriptions)
 
 
 class RegistrationForm(UserCreationForm):
@@ -38,4 +41,7 @@ class RegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for name, field in self.fields.items():
-            field.widget.attrs["aria-describedby"] = f"{name}-help {name}-errors"
+            descriptions = [f"{name}-errors"]
+            if field.help_text:
+                descriptions.insert(0, f"{name}-help")
+            field.widget.attrs["aria-describedby"] = " ".join(descriptions)

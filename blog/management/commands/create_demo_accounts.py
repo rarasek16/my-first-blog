@@ -7,9 +7,10 @@ from django.core.management.base import BaseCommand, CommandError
 
 
 DEMO_USERS = (
-    ("ada_demo", "Ada", "Student"),
-    ("bruno_demo", "Bruno", "Student"),
-    ("cyril_demo", "Cyril", "Student"),
+    ("ada_demo", "Ada", "Student", False),
+    ("bruno_demo", "Bruno", "Student", False),
+    ("cyril_demo", "Cyril", "Student", False),
+    ("admin_demo", "Admin", "DjangoStart", True),
 )
 
 
@@ -35,7 +36,7 @@ class Command(BaseCommand):
 
         user_model = get_user_model()
         credentials = []
-        for username, first_name, last_name in DEMO_USERS:
+        for username, first_name, last_name, is_admin in DEMO_USERS:
             password = secrets.token_urlsafe(12)
             user, _ = user_model.objects.get_or_create(
                 username=username,
@@ -43,7 +44,8 @@ class Command(BaseCommand):
             )
             user.set_password(password)
             user.is_active = True
-            user.is_staff = False
+            user.is_staff = is_admin
+            user.is_superuser = is_admin
             user.save()
             credentials.append((username, password))
 
@@ -58,4 +60,4 @@ class Command(BaseCommand):
             "",
         ]
         credentials_file.write_text("\n".join(lines), encoding="utf-8")
-        self.stdout.write(self.style.SUCCESS(f"Created 3 demo accounts. Credentials: {credentials_file}"))
+        self.stdout.write(self.style.SUCCESS(f"Created 4 demo accounts. Credentials: {credentials_file}"))

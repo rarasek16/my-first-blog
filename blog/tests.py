@@ -1,3 +1,6 @@
+from pathlib import Path
+from tempfile import TemporaryDirectory
+
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
@@ -139,7 +142,8 @@ class PostViewTests(TestCase):
         response = self.client.get(reverse("post_new"))
 
         self.assertContains(response, 'for="id_title"')
-        self.assertContains(response, 'aria-describedby="title-help title-errors"')
+        self.assertContains(response, 'aria-describedby="title-errors"')
+        self.assertContains(response, "Přidat výukové materiály")
 
     def test_accessibility_statement_is_available(self):
         response = self.client.get(reverse("accessibility_statement"))
@@ -199,3 +203,16 @@ class DemoAccountsCommandTests(TestCase):
         with override_settings(DEBUG=False):
             with self.assertRaises(CommandError):
                 call_command("create_demo_accounts")
+
+    def test_demo_admin_has_administration_permissions(self):
+        with TemporaryDirectory() as directory:
+            base_dir = Path(directory)
+            credentials_file = base_dir / "local" / "demo-accounts.txt"
+            with override_settings(BASE_DIR=base_dir, DEBUG=True):
+                call_command("create_demo_accounts", credentials_file=credentials_file)
+            self.assertTrue(credentials_file.exists())
+            self.assertIn("admin_demo |", credentials_file.read_text(encoding="utf-8"))
+
+        admin = get_user_model().objects.get(username="admin_demo")
+        self.assertTrue(admin.is_staff)
+        self.assertTrue(admin.is_superuser)

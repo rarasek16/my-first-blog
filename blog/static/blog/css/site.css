@@ -790,6 +790,44 @@ textarea:focus-visible {
     margin-top: 34px;
 }
 
+.form-section {
+    margin: 0 0 22px;
+    padding: 25px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+.form-section legend {
+    padding: 0 7px;
+    color: var(--ink);
+    font-weight: 800;
+}
+
+.form-section-intro,
+.advanced-fields > p {
+    margin: 0 0 23px;
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.advanced-fields {
+    margin: 0 0 28px;
+    padding: 18px 24px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: #fafaff;
+}
+
+.advanced-fields summary {
+    color: var(--violet-dark);
+    cursor: pointer;
+    font-weight: 800;
+}
+
+.advanced-fields[open] summary {
+    margin-bottom: 19px;
+}
+
 .form-field {
     display: grid;
     gap: 7px;
@@ -984,6 +1022,11 @@ textarea:focus-visible {
         margin-top: 35px;
         padding: 30px 23px;
         border-radius: 16px;
+    }
+
+    .form-section,
+    .advanced-fields {
+        padding: 19px;
     }
 
     .bonus-hero {
