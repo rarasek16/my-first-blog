@@ -45,6 +45,16 @@ Pokud má výchozí PDF otevřený prohlížeč, použij jinou výstupní cestu:
 python tools/generate_reports_pdf.py --output reports/DjangoStart-technicke-a-testovaci-reporty-opraveno.pdf
 ```
 
+## Oznámení konzultačních hodin
+
+PDF pro vložení do všech Moodle kurzů vytvoříš příkazem:
+
+```powershell
+python tools/generate_consultation_hours_pdf.py
+```
+
+Výstup je v `documents/Konzultacni-hodiny.pdf`. Obsahuje pravidelné konzultační hodiny Ing. Radka Kozakoviče, Ph.D.: každé pondělí 12:35–13:20 a možnost individuální konzultace po předchozí domluvě.
+
 ## Lokální demo účty
 
 Pouze při lokálním vývoji (`DEBUG=True`) vytvoříš tři studentské demo účty a jeden administrátorský účet příkazem:
