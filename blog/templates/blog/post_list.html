@@ -28,13 +28,13 @@
 <section class="learning-path" id="plan">
     <div class="section-heading">
         <p class="eyebrow">Studijní plán</p>
-        <h2>Od prvního příkazu k vlastnímu webu</h2>
+        <h2>Od prvního příkazu k vlastní webové aplikaci</h2>
+        <p class="section-intro">Každý modul obsahuje cíl, krátký výklad, ukázku a úkol. Postupuj po pořadí, ale vracej se k dřívějším lekcím při práci na vlastním projektu.</p>
     </div>
     <ol class="steps">
-        <li><span>01</span><div><h3>Seznam se s nástroji</h3><p>Python, terminál, virtuální prostředí a Git bez zbytečné teorie.</p></div></li>
-        <li><span>02</span><div><h3>Postav kostru projektu</h3><p>URL adresy, view a šablony: tři věci, díky kterým Django ožije.</p></div></li>
-        <li><span>03</span><div><h3>Přidej data</h3><p>Modely, SQLite a Django admin promění stránku v opravdovou aplikaci.</p></div></li>
-        <li><span>04</span><div><h3>Vystav svůj projekt</h3><p>Nasazení na web a sdílení výsledku s kamarády nebo učitelem.</p></div></li>
+        {% for module in course_modules %}
+            <li><span>{{ module.number }}</span><div><h3>{{ module.title }}</h3><p>{{ module.outcome }}</p></div></li>
+        {% endfor %}
     </ol>
 </section>
 
@@ -64,7 +64,7 @@
                     <time datetime="{{ post.published_date|date:'c' }}">{{ post.published_date|date:"d. m. Y" }}</time>
                 </div>
                 <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
-                <p>{{ post.text|truncatechars:180 }}</p>
+                <p>{% if post.learning_goal %}{{ post.learning_goal }}{% else %}{{ post.text|truncatechars:180 }}{% endif %}</p>
                 <a class="post-read" href="{% url 'post_detail' pk=post.pk %}">Otevřít článek <span aria-hidden="true">-&gt;</span></a>
             </article>
         {% empty %}

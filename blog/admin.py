@@ -13,4 +13,4 @@ class CategoryAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "author", "category", "published_date")
     list_filter = ("category", "published_date")
-    search_fields = ("title", "text")
+    search_fields = ("title", "text", "learning_goal", "code_explanation")

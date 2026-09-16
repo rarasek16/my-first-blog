@@ -31,8 +31,21 @@ class SeedDjangoLessonsCommandTests(TestCase):
         call_command("seed_django_lessons")
         call_command("seed_django_lessons")
 
-        self.assertEqual(Category.objects.count(), 4)
-        self.assertEqual(Post.objects.filter(author__username="django_start").count(), 6)
+        self.assertEqual(Category.objects.count(), 8)
+        lessons = Post.objects.filter(author__username="django_start")
+        self.assertEqual(lessons.count(), 11)
+        self.assertTrue(lessons.filter(code_example__gt="").exists())
+
+    def test_refresh_adds_materials_to_existing_sample_lessons(self):
+        call_command("seed_django_lessons")
+        Post.objects.filter(title="Django nebo Flask? Jak vybrat framework pro projekt").update(
+            learning_goal=""
+        )
+
+        call_command("seed_django_lessons", refresh=True)
+
+        lesson = Post.objects.get(title="Django nebo Flask? Jak vybrat framework pro projekt")
+        self.assertNotEqual(lesson.learning_goal, "")
 
 
 class PostViewTests(TestCase):

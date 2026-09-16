@@ -287,9 +287,15 @@ a {
     font-size: clamp(2rem, 3.3vw, 3rem);
 }
 
+.section-intro {
+    max-width: 680px;
+    margin: 18px 0 0;
+    color: var(--muted);
+}
+
 .steps {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 18px;
     margin: 38px 0 0;
     padding: 0;
@@ -487,6 +493,45 @@ a {
     font-family: Georgia, "Times New Roman", serif;
     font-size: 1.14rem;
     line-height: 1.8;
+}
+
+.lesson-goal,
+.practice-task {
+    margin: 28px 0;
+    padding: 22px 24px;
+    border-radius: 14px;
+    background: #f0edff;
+}
+
+.lesson-goal p:last-child,
+.practice-task p:last-child {
+    margin: 0;
+    font-weight: 650;
+}
+
+.lesson-code {
+    margin: 32px 0;
+}
+
+.lesson-code pre {
+    margin: 12px 0 0;
+    padding: 22px;
+    overflow-x: auto;
+    border-radius: 13px;
+    background: #20233b;
+    color: #e8ebff;
+    font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+    font-size: 0.88rem;
+    line-height: 1.65;
+}
+
+.code-explanation {
+    padding: 17px 20px;
+    border: 1px solid var(--line);
+    border-top: 0;
+    border-radius: 0 0 13px 13px;
+    color: var(--muted);
+    font-size: 0.94rem;
 }
 
 .editor-page > p:not(.eyebrow) {

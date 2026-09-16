@@ -6,6 +6,40 @@ from .forms import PostForm
 from .models import Category, Post
 
 
+COURSE_MODULES = (
+    {
+        "number": "01",
+        "title": "Start a nástroje",
+        "outcome": "Připravím Python, virtuální prostředí, Git a první Django projekt.",
+    },
+    {
+        "number": "02",
+        "title": "Webová architektura",
+        "outcome": "Vysvětlím cestu požadavku od URL přes view až po šablonu.",
+    },
+    {
+        "number": "03",
+        "title": "Data a databáze",
+        "outcome": "Navrhnu model, vytvořím migraci a pracuji s daty v adminu.",
+    },
+    {
+        "number": "04",
+        "title": "Formuláře a účty",
+        "outcome": "Vytvořím validovaný formulář a rozliším přihlášení od oprávnění.",
+    },
+    {
+        "number": "05",
+        "title": "Kvalita a bezpečnost",
+        "outcome": "Napíšu testy a umím vysvětlit ochranu CSRF i práci s chybami.",
+    },
+    {
+        "number": "06",
+        "title": "Volba nástroje a nasazení",
+        "outcome": "Porovnám Django s Flaskem a bezpečně zveřejním hotový projekt.",
+    },
+)
+
+
 def navigation_context():
     return {"categories": Category.objects.all()}
 
@@ -29,6 +63,7 @@ def post_list(request, category_slug=None):
             **navigation_context(),
             "posts": posts,
             "selected_category": selected_category,
+            "course_modules": COURSE_MODULES,
         },
     )
 

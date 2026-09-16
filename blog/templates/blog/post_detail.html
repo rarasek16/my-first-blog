@@ -14,7 +14,28 @@
     {% if post.category %}
         <p class="article-category">Téma: {{ post.category.name }}</p>
     {% endif %}
+    {% if post.learning_goal %}
+        <section class="lesson-goal">
+            <p class="eyebrow">Cíl lekce</p>
+            <p>{{ post.learning_goal }}</p>
+        </section>
+    {% endif %}
     <div class="article-body">{{ post.text|linebreaksbr }}</div>
+    {% if post.code_example %}
+        <section class="lesson-code">
+            <p class="eyebrow">Vyzkoušej si kód</p>
+            <pre><code>{{ post.code_example }}</code></pre>
+            {% if post.code_explanation %}
+                <div class="code-explanation">{{ post.code_explanation|linebreaksbr }}</div>
+            {% endif %}
+        </section>
+    {% endif %}
+    {% if post.practice_task %}
+        <section class="practice-task">
+            <p class="eyebrow">Praktický úkol</p>
+            <p>{{ post.practice_task|linebreaksbr }}</p>
+        </section>
+    {% endif %}
 
     {% if user.is_authenticated and user == post.author %}
         <p><a class="button button-small" href="{% url 'post_edit' pk=post.pk %}">Upravit článek</a></p>
